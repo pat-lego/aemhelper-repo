@@ -1,10 +1,14 @@
 package com.adobe.aem.support.core.mbean.delete;
 
+import javax.jcr.AccessDeniedException;
 import javax.jcr.LoginException;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.lock.LockException;
+import javax.jcr.nodetype.ConstraintViolationException;
+import javax.jcr.version.VersionException;
 import javax.management.DynamicMBean;
 import javax.management.NotCompliantMBeanException;
 
@@ -20,7 +24,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component(immediate = true, service = DynamicMBean.class, property = {
+@Component(immediate = true, service = {DynamicMBean.class, DeleteMBean.class}, property = {
         "jmx.objectname=com.adobe.aem.support.core.mbean.delete:type=DeleteMBean"
 })
 public class DeleteMBeanImpl extends AnnotatedStandardMBean implements DeleteMBean {
@@ -78,24 +82,19 @@ public class DeleteMBeanImpl extends AnnotatedStandardMBean implements DeleteMBe
             while (nodeIterator.hasNext()) {
                 Node child = nodeIterator.nextNode();
                 try {
-
                     String primaryType = child.getProperty(JCR_PRIMARY_TYPE).getString();
                     if (primaryType.equals(nodeType)) {
                         if (basicCondition.isNotNull()) {
                             String property = basicCondition.getProperty();
                             if (child.getProperty(property).getString().contains(basicCondition.getValue())) {
                                 logger.info("Condition is met for given condition {} ", basicCondition.toString());
-                                session.refresh(true);
-                                child.remove();
-                                session.save();
+                                delete(session, child);
                             } else {
-                                logger.info("Condition is not met for given condition {} ", basicCondition.toString());
+                                logger.info("Condition is not met for given condition {}, current value is {} ", basicCondition.toString(), child.getProperty(basicCondition.getProperty()).getString());
                             }
                         } else {
-                            logger.info("No condition is in the Condition object about to delete");
-                            session.refresh(true);
-                            child.remove();
-                            session.save();
+                            logger.info("No condition is in the Condition object about to delete node {} ", child.getPath());
+                            delete(session, child);
                         }
                     } else {
                         logger.info("Skipping {} as it is the wrong primary type", child.getPath());
@@ -122,6 +121,13 @@ public class DeleteMBeanImpl extends AnnotatedStandardMBean implements DeleteMBe
 
     private void closeSession(Session session) {
         session.logout();
+    }
+
+    private void delete(Session session, Node child) throws RepositoryException {
+        session.refresh(true);
+        child.remove();
+        session.save();
+        HAS_DELETED = true;
     }
 
 }

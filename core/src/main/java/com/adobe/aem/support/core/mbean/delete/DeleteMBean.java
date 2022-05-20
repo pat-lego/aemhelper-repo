@@ -13,5 +13,5 @@ public interface DeleteMBean {
      * @return - True if anything was deleted False otherwise
      */
     @Description("Delete specific node types under a given path only when a specific condition is met")
-    public boolean delete(String path, String nodeType, String condition);
+    public boolean delete(@Description("The path") String path, @Description("The node type") String nodeType, @Description("The condition propertName=Value") String condition);
 }

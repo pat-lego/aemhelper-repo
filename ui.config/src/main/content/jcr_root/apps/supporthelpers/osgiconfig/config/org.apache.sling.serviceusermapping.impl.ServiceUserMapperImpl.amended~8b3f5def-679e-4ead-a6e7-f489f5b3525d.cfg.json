@@ -1,6 +1,6 @@
 // Configuration created by Apache Sling JCR Installer
 {
   "user.mapping":[
-    "support-helpers.core:aemsupport=aemsupport"
+    "support-helpers.core:aemsupport=[aemsupport]"
   ]
 }
