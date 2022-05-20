@@ -1,4 +1,4 @@
-package com.adobe.aem.core.constants;
+package com.adobe.aem.support.core.constants;
 
 public class ServiceUser {
 

@@ -1,4 +1,4 @@
-package com.adobe.aem.core.mbean.delete;
+package com.adobe.aem.support.core.mbean.delete;
 
 import com.adobe.granite.jmx.annotation.Description;
 
