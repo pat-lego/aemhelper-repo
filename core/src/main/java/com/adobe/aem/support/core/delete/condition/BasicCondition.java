@@ -1,4 +1,4 @@
-package com.adobe.aem.support.core.mbean.delete.condition;
+package com.adobe.aem.support.core.delete.condition;
 
 public class BasicCondition implements Condition {
 

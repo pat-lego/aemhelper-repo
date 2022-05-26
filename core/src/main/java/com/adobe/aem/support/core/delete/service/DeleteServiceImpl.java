@@ -1,21 +1,17 @@
-package com.adobe.aem.support.core.mbean.delete;
+package com.adobe.aem.support.core.delete.service;
 
-import javax.jcr.AccessDeniedException;
 import javax.jcr.LoginException;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.lock.LockException;
-import javax.jcr.nodetype.ConstraintViolationException;
-import javax.jcr.version.VersionException;
 import javax.management.DynamicMBean;
 import javax.management.NotCompliantMBeanException;
 
 import com.adobe.aem.support.core.constants.ServiceUser;
-import com.adobe.aem.support.core.mbean.delete.condition.BasicCondition;
-import com.adobe.aem.support.core.mbean.delete.condition.Condition;
-import com.adobe.aem.support.core.mbean.delete.condition.ConditionException;
+import com.adobe.aem.support.core.delete.condition.BasicCondition;
+import com.adobe.aem.support.core.delete.condition.Condition;
+import com.adobe.aem.support.core.delete.condition.ConditionException;
 import com.adobe.granite.jmx.annotation.AnnotatedStandardMBean;
 
 import org.apache.sling.jcr.api.SlingRepository;
@@ -24,13 +20,13 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component(immediate = true, service = {DynamicMBean.class, DeleteMBean.class}, property = {
+@Component(immediate = true, service = {DynamicMBean.class, DeleteService.class}, property = {
         "jmx.objectname=com.adobe.aem.support.core.mbean.delete:type=DeleteMBean"
 })
-public class DeleteMBeanImpl extends AnnotatedStandardMBean implements DeleteMBean {
+public class DeleteServiceImpl extends AnnotatedStandardMBean implements DeleteService {
 
-    public DeleteMBeanImpl() throws NotCompliantMBeanException {
-        super(DeleteMBean.class);
+    public DeleteServiceImpl() throws NotCompliantMBeanException {
+        super(DeleteService.class);
     }
 
     @Reference

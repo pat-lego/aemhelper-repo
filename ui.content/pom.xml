@@ -53,7 +53,7 @@
                     <group>com.adobe.aem</group>
                     <name>support-helpers.ui.content</name>
                     <packageType>content</packageType>
-                    <accessControlHandling>merge</accessControlHandling>
+                    <!-- <accessControlHandling>merge</accessControlHandling> -->
                     <validatorsSettings>
                         <jackrabbit-filter>
                             <options>

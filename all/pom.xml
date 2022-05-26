@@ -54,23 +54,23 @@
                     <!-- skip sub package validation for now as some vendor packages like CIF apps will not pass -->
                     <skipSubPackageValidation>true</skipSubPackageValidation>
                     <embeddeds>
-                        <!-- <embedded>
+                        <embedded>
                             <groupId>com.adobe.aem</groupId>
                             <artifactId>support-helpers.ui.apps</artifactId>
                             <type>zip</type>
                             <target>/apps/supporthelpers-packages/application/install</target>
-                        </embedded> -->
+                        </embedded>
                         <embedded>
                             <groupId>com.adobe.aem</groupId>
                             <artifactId>support-helpers.core</artifactId>
                             <target>/apps/supporthelpers-packages/application/install</target>
                         </embedded>
-                        <!-- <embedded>
+                        <embedded>
                             <groupId>com.adobe.aem</groupId>
                             <artifactId>support-helpers.ui.content</artifactId>
                             <type>zip</type>
                             <target>/apps/supporthelpers-packages/content/install</target>
-                        </embedded> -->
+                        </embedded>
                         <embedded>
                             <groupId>com.adobe.aem</groupId>
                             <artifactId>support-helpers.ui.config</artifactId>
@@ -178,7 +178,7 @@
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
-        <!-- <dependency>
+        <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>support-helpers.ui.apps</artifactId>
             <version>${project.version}</version>
@@ -189,7 +189,7 @@
             <artifactId>support-helpers.ui.content</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
-        </dependency> -->
+        </dependency>
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>support-helpers.ui.config</artifactId>

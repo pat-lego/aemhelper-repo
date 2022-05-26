@@ -1,9 +1,9 @@
-package com.adobe.aem.support.core.mbean.delete;
+package com.adobe.aem.support.core.delete.service;
 
 import com.adobe.granite.jmx.annotation.Description;
 
 @Description("MBean to delete nodes under a specific location")
-public interface DeleteMBean {
+public interface DeleteService {
     
     /**
      * 
