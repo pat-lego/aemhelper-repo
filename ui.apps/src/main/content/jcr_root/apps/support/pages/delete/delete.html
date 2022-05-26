@@ -1,23 +1,23 @@
 <html>
+
 <head>
-	<script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/axios@0.27.2"></script>
 </head>
 
 <body>
-<div id="app">{{ message }}</div>
+  <div id="app">{{ message }}</div>
 
-<div>'<%= name %>'</div>
+  <script>
+    const { createApp } = Vue
 
-<script>
-  const { createApp } = Vue
-
-  createApp({
-    data() {
-      return {
-        message: 'Hello Vue!'
+    createApp({
+      data() {
+        return {
+          message: 'Hello Vue!'
+        }
       }
-    }
-  }).mount('#app')
-</script>
+    }).mount('#app')
+  </script>
 </body>
 <html>
