@@ -15,7 +15,7 @@
     "tailwind": "npx tailwindcss -i ./src/main/webpack/site/input.css -o ./dist/clientlib-site/output.css",
     "start": "webpack-dev-server --open --config ./webpack.dev.js",
     "sync": "aemsync -d -p ../ui.apps/src/main/content",
-    "watch": "webpack-dev-server --config ./webpack.dev.js --env writeToDisk & npm run tailwind & chokidar -c \"clientlib\" ./dist & aemsync -w ../ui.apps/src/main/content"
+    "watch": "webpack-dev-server --config ./webpack.dev.js --env writeToDisk & chokidar -c \"clientlib\" ./dist & aemsync -w ../ui.apps/src/main/content"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
