@@ -6,14 +6,15 @@
 
   <script src="https://unpkg.com/axios@0.27.2"></script>
   <script src="https://unpkg.com/vue@3"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.css @ categories=['support.site']}"/>
 </head>
 
 <body>
   <div id="app">
     {{message}}
     <div>
-      <span>Enter a path to view the nodes in the repository</span><input type="text" id="path">
+      <span class="text-3xl">Enter a path to view the nodes in the repository</span><input type="text" id="path">
     </div>
   </div>
 

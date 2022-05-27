@@ -10,11 +10,12 @@
   "main": "src/main/webpack/site/main.ts",
   "license": "SEE LICENSE IN LICENSE.txt",
   "scripts": {
-    "dev": "webpack --env dev --config ./webpack.dev.js && clientlib --verbose",
-    "prod": "webpack --config ./webpack.prod.js && clientlib --verbose",
+    "dev": "webpack --env dev --config ./webpack.dev.js && npm run tailwind && clientlib --verbose",
+    "prod": "webpack --config ./webpack.prod.js && npm run tailwind && clientlib --verbose",
+    "tailwind": "npx tailwindcss -i ./src/main/webpack/site/input.css -o ./dist/clientlib-site/output.css",
     "start": "webpack-dev-server --open --config ./webpack.dev.js",
     "sync": "aemsync -d -p ../ui.apps/src/main/content",
-    "watch": "webpack-dev-server --config ./webpack.dev.js --env writeToDisk & chokidar -c \"clientlib\" ./dist & aemsync -w ../ui.apps/src/main/content"
+    "watch": "webpack-dev-server --config ./webpack.dev.js --env writeToDisk & npm run tailwind & chokidar -c \"clientlib\" ./dist & aemsync -w ../ui.apps/src/main/content"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -44,6 +45,7 @@
     "sass-loader": "^12.4.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.14.1",
+    "tailwindcss": "^3.0.24",
     "terser-webpack-plugin": "^5.2.5",
     "ts-loader": "^9.2.6",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
