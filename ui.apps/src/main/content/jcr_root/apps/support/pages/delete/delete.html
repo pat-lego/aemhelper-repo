@@ -4,28 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://unpkg.com/axios@0.27.2"></script>
-  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
   <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
-     data-sly-call="${clientlib.css @ categories=['support.site']}"/>
+    data-sly-call="${clientlib.css @ categories=['support.site']}" />
+    <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+    data-sly-call="${clientlib.js @ categories=['support.site']}" />
 </head>
 
-<body>
-  <div id="app">
-    {{message}}
-    <div>
-      <span class="text-3xl">Enter a path to view the nodes in the repository</span><input type="text" id="path">
+<body class="w-full">
+  <div class="flex flex-col w-full" id="app">
+    <div class="flex flex-col w-full">
+      <div class="flex flex-row w-full justify-center p-2">
+        <p class="mr-2">Enter a path to view the nodes in the repository</p>
+        <input class="border" type="text" v-model="path">
+      </div>
+      <div class="flex flex-row w-full justify-center p-2">
+        <button @click="repoJson" class="border">Get Data</button>
+      </div>
     </div>
+    <div v-if="data" class="flex flex-col w-2/3">
+      {{data}}
+    </div>
+    <custom-button></custom-button>
   </div>
 
   <script>
     const { createApp } = Vue
+
     createApp({
       data() {
         return {
-          message: 'Hello Vue!'
+          data: undefined,
+          path: undefined
         }
-      }
+      },
+      methods: {
+        repoJson: async function () {
+          if (this.path) {
+            const path = '/content/support/delete.json' + this.path
+            this.data = (await axios(path)).data
+          } else {
+            console.error('The path variable is not set please provide a path')
+          }
+        }
+      },
+      components: {
+            'custom-button': support.components.CustomButton,
+        },
     }).mount('#app')
   </script>
 </body>

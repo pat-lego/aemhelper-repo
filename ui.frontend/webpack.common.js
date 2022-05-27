@@ -25,7 +25,7 @@ module.exports = {
         filename: (chunkData) => {
             return chunkData.chunk.name === 'dependencies' ? 'clientlib-dependencies/[name].js' : 'clientlib-site/[name].js';
         },
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
@@ -89,7 +89,7 @@ module.exports = {
             patterns: [
                 { from: path.resolve(__dirname, SOURCE_ROOT + '/resources'), to: './clientlib-site/' }
             ]
-        })
+        }),
     ],
     stats: {
         assetsSort: 'chunks',
