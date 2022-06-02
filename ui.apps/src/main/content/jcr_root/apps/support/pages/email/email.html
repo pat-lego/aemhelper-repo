@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
+  <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+    data-sly-call="${clientlib.css @ categories=['support.site']}" />
+    <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+    data-sly-call="${clientlib.js @ categories=['support.site']}" />
+</head>
+
+<body class="w-full">
+  
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+<html>
