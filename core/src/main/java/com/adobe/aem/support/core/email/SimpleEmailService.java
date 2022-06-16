@@ -31,8 +31,10 @@ public class SimpleEmailService implements EmailService {
                 email.addTo(recipient);
             }
 
-            for (String ccRecipient : ccRecipients) {
-                email.addCc(ccRecipient);
+            if (ccRecipients != null) {
+                for (String ccRecipient : ccRecipients) {
+                    email.addCc(ccRecipient);
+                }
             }
 
             if (null != subject && !subject.isEmpty()) {
