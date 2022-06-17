@@ -10,11 +10,11 @@ import javax.servlet.ServletException;
 
 import com.adobe.aem.support.core.email.EmailService;
 import com.adobe.aem.support.core.email.exceptions.EmailException;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
+import com.adobe.aem.support.core.helpers.Utils;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
+
 
 import org.apache.commons.io.IOUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -41,8 +41,6 @@ public class EmailSendServlet extends SlingAllMethodsServlet {
     private static final String FROM = "from";
     private static final String MSG = "msg";
 
-    private final Gson gson = new Gson();
-
     @Override
     @SuppressWarnings("deprecation")
     public void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -60,12 +58,12 @@ public class EmailSendServlet extends SlingAllMethodsServlet {
             
             String subject = inputJson.get(SUBJECT).getAsString();
 
-            List<String> recipients = getListFromJsonArray(inputJson.get(RECIPIENTS).getAsJsonArray(),
+            List<String> recipients = Utils.getListFromJsonArray(inputJson.get(RECIPIENTS).getAsJsonArray(),
                     new TypeToken<List<String>>() {
                     });
             List<String> ccRecipients = null;
             if (inputJson.get(CCRECIPIENTS) != null) {
-                ccRecipients = getListFromJsonArray(inputJson.get(CCRECIPIENTS).getAsJsonArray(),
+                ccRecipients = Utils.getListFromJsonArray(inputJson.get(CCRECIPIENTS).getAsJsonArray(),
                         new TypeToken<List<String>>() {
                         });
             }
@@ -88,9 +86,4 @@ public class EmailSendServlet extends SlingAllMethodsServlet {
         }
 
     }
-
-    public <T> List<T> getListFromJsonArray(JsonArray array, TypeToken<List<T>> typeToken) {
-        return this.gson.fromJson(array, typeToken.getType());
-    }
-
 }
