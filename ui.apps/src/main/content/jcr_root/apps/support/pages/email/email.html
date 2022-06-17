@@ -8,18 +8,113 @@
   <script src="https://unpkg.com/vue@3.1.1/dist/vue.global.prod.js"></script>
   <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
     data-sly-call="${clientlib.css @ categories=['support.site']}" />
-    <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+  <sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
     data-sly-call="${clientlib.js @ categories=['support.site']}" />
 </head>
 
 <body class="w-full">
-  
+  <div class="flex w-full justify-center">
+    <p class="text-xl">Email Test</p>
+  </div>
+  <div class="flex w-full justify-center" id="app">
+    <div class="flex flex-col w-1/3">
+      <div class="p-2 w-full">
+        <div class="flex w-1/2 justify-start">
+          <label>Subject:</label>
+        </div>
+        <div class="flex w-full justify-end">
+          <input class="w-full border-2" id="subject" v-model="subject" type="text" required>
+        </div>
+      </div>
+
+      <div class="p-2 w-full">
+        <div class="flex w-1/2 justify-start">
+          <label>From:</label>
+        </div>
+        <div class="flex w-full justify-end">
+          <input class="w-full border-2" id="from" v-model="from" type="text">
+        </div>
+      </div>
+
+      <div class="p-2 w-full">
+        <div class="flex w-1/2 justify-start">
+          <label>To:</label>
+        </div>
+        <div class="flex w-full justify-end">
+          <input class="w-full border-2" id="to" v-model="to" type="text" required>
+        </div>
+      </div>
+
+      <div class="p-2 w-full">
+        <div class="flex w-1/2 justify-start">
+          <label>Cc:</label>
+        </div>
+        <div class="flex w-full justify-end">
+          <input class="w-full border-2" id="cc" v-model="cc" type="text">
+        </div>
+      </div>
+
+      <div class="p-2 w-full">
+        <div class="flex w-1/2 justify-start">
+          <label>Message:</label>
+        </div>
+        <div class="flex w-full justify-end">
+          <input class="w-full border-2" id="msg" v-model="msg" type="text" required>
+        </div>
+      </div>
+
+      <div class="flex justify-center p-2 w-full">
+        <submit-button class="p-2 border-2 hover:bg-sky-500" :name="'Submit'" @submit-button="submitEvent">
+        </submit-button>
+      </div>
+    </div>
+
+    <div v-if="result">
+
+    </div>
+  </div>
   <script>
     const { createApp } = Vue
 
     createApp({
       data() {
         return {
+          subject: undefined,
+          from: undefined,
+          to: undefined,
+          cc: undefined,
+          msg: undefined,
+          result: undefined
+        }
+      },
+      components: {
+        SubmitButton: window.support.components.SubmitButton
+      },
+      methods: {
+        convertToStrArray(array, del) {
+          if (array) {
+            if (del) {
+              return array.split(del)
+            }
+            return array.split(",")
+          }
+          return []
+        },
+        submitEvent() {
+          debugger;
+          if (this.subject && this.msg && this.to) {
+            axios.post('/content/support/email.json', {
+              subject: this.subject,
+              from: this.from,
+              recipients: this.convertToStrArray(this.to),
+              ccRecipients: this.convertToStrArray(this.cc),
+              msg: this.msg
+            }, {
+              withCredentials: true
+            })
+          } else {
+            alert('One of the required parameters subject, message or to are missing in the form')
+          }
         }
       }
     }).mount('#app')

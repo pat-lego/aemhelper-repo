@@ -65,7 +65,7 @@ module.exports = {
       ...libsBaseConfig,
       name: 'clientlib-site',
       categories: ['support.site'],
-      dependencies: ['support.dependencies'],
+      dependencies: ['support.dependencies', 'granite.csrf.standalone'],
       assets: {
         // Copy entrypoint scripts and stylesheets into the respective ClientLib
         // directories

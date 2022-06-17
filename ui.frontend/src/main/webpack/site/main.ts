@@ -10,4 +10,4 @@
 global.support = {
     components: {}
 }
-import './components/JcrLoop';
+import './components/SubmitButton';
