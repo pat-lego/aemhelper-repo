@@ -18,7 +18,7 @@ public class SimpleEmailService implements EmailService {
     private final String DEFAULT_MSG = "Default Message";
 
     @Reference
-    private MessageGatewayService messageGatewayService;
+    public MessageGatewayService messageGatewayService;
 
     @Override
     public void sendEmail(List<String> recipients, List<String> ccRecipients, String subject, String from, String msg) throws EmailException {
@@ -26,6 +26,10 @@ public class SimpleEmailService implements EmailService {
 
             // Set up the Email message
             Email email = new SimpleEmail();
+
+            if (recipients == null) {
+                throw new EmailException("Missing mandatory recipients field, please make sure to set the recipients of this email");
+            }
 
             for (String recipient: recipients) {
                 email.addTo(recipient);
